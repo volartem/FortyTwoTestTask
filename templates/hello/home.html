@@ -17,42 +17,38 @@
             <div class="col-md-5">
                 <br>
                 <h4>Name
-                    <small>  myName </small>
+                    <small>  {{ info.name }} </small>
                 </h4>
 
                 <h4>Last name
-                    <small> mySurname </small>
+                    <small> {{ info.surname }} </small>
                 </h4>
 
                 <h4>Date of birth
-                    <small> 07-11-1986 </small>
+                    <small> {{ info.date_birth }} </small>
                 </h4>
 
                 <h4>Bio:<br>
-                    <small> Django Python developer Dublh 3 </small><br>
-                    <small> Junior Django Python developer </small><br>
-
+                    <small> {{ info.bio|linebreaks }} </small><br>
                 </h4>
 
             </div>
             <div class="col-md-5">
                 <h4>Contacts</h4>
                 <h4>Email:
-                    <small> email@email.com </small>
+                    <small> {{ info.email }} </small>
                 </h4>
 
                 <h4>Jabber:
-                    <small> jabber@co</small>
+                    <small> {{ info.jabber }} </small>
                 </h4>
 
                 <h4>Skype:
-                    <small> skype </small>
+                    <small> {{ info.skype }} </small>
                 </h4>
 
                 <h4>Other contacts:<br>
-                    <small> other_contacts </small><br>
-                    <small> facebook </small><br>
-                    <small> phone number </small>
+                    <small> {{ info.other_contacts|linebreaks }} </small><br>
                 </h4>
 
             </div>

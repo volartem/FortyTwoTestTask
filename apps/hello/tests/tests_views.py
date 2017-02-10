@@ -27,11 +27,10 @@ class HomeViewTest(TestCase):
         other contacts) to the template
         """
         data = self.response.context['info']
-        self.assertContains(data['name'], 'myName')
-        self.assertContains(data['surname'], 'mySurname')
-        self.assertContains(data['date_birth'], '07-11-1986')
-        self.assertContains(data['bio'], 'Django Python developer Dublh 3')
-        self.assertContains(data['email'], 'email@email.com')
-        self.assertContains(data['skype'], 'skype')
-        self.assertContains(data['jabber'], 'jabber@co')
-        self.assertContains(data['other_contacts'], 'other_contacts')
+        self.assertEqual(data['name'], 'myName')
+        self.assertEqual(data['surname'], 'mySurname')
+        self.assertEqual(data['date_birth'], '07-11-1986')
+        self.assertEqual(data['bio'], 'Django Python developer Dublh 3 \n Junior Django Python developer')
+        self.assertEqual(data['email'], 'email@email.com')
+        self.assertEquals(data['skype'], 'skype')
+        self.assertEqual(data['jabber'], 'jabber@co')
