@@ -1,11 +1,12 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
-
+from apps.hello.models import Contact
 
 class HomeViewTest(TestCase):
     """"
     Tests views
     """
+    fixtures = ['initial_data.json']
     def setUp(self):
         """
         Set base info for working tests
@@ -27,11 +28,12 @@ class HomeViewTest(TestCase):
         other contacts) to the template
         """
         data = self.response.context['info']
-        self.assertEqual(data['name'], 'myName')
-        self.assertEqual(data['surname'], 'mySurname')
-        self.assertEqual(data['date_birth'], '07-11-1986')
-        self.assertEqual(data['bio'], 'Django Python developer Dublh 3 \n'
+        print data
+        self.assertEqual(data.name, 'myName')
+        self.assertEqual(data.surname, 'mySurname')
+        self.assertEqual(data.date_birth.strftime('%d-%m-%Y'), '07-11-1986')
+        self.assertEqual(data.bio, 'Django Python developer Dublh 3 \r\n'
                                       'Junior Django Python developer')
-        self.assertEqual(data['email'], 'email@email.com')
-        self.assertEquals(data['skype'], 'skype')
-        self.assertEqual(data['jabber'], 'jabber@co')
+        self.assertEqual(data.email, 'email@email.com')
+        self.assertEquals(data.skype, 'skype')
+        self.assertEqual(data.jabber, 'jabber@co')

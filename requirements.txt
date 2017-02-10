@@ -8,3 +8,4 @@ pycodestyle==2.0.0
 pyflakes==1.2.3
 pyparsing==2.1.10
 six==1.10.0
+South==1.0.2

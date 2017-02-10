@@ -1,0 +1,35 @@
+[
+  {
+    "pk": 1,
+    "model": "hello.contact",
+    "fields": {
+      "bio": "Django Python developer Dublh 3 \r\nJunior Django Python developer",
+      "date_birth": "1986-11-07",
+      "name": "myName",
+      "created": "2017-02-10T14:43:19.726Z",
+      "other_contacts": "other contacts\r\nfacebook\r\nphone number",
+      "skype": "skype",
+      "surname": "mySurname",
+      "jabber": "jabber@co",
+      "email": "email@email.com"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": "2017-02-10T19:40:55.440Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$towVQVDBBdBN$Lzo5rQALmwUidhMpCpvoRvN3sYmxg1ohZF2AsKfQsuM=",
+      "email": "admin@email.com",
+      "date_joined": "2017-02-10T14:30:25.606Z"
+    }
+  }
+]

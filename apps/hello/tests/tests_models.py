@@ -14,15 +14,6 @@ class ContactModelTest(TestCase):
         """
         Setup two objects to tests
         """
-        Contact.objects.create(name="testName",
-                               surname='testSurname',
-                               date_birth="2002-02-02",
-                               bio='test bio info\n test bio info2',
-                               email='test@email.com',
-                               jabber='test@jabber.com',
-                               skype='test_skype',
-                               other_contacts='test contact info',
-                               )
         Contact.objects.create(name="testName2",
                                surname='testSurname2',
                                date_birth="2002-02-03",
@@ -48,11 +39,13 @@ class ContactModelTest(TestCase):
         self.assertIsInstance(contact.created, datetime)
         self.assertIsInstance(contact.name, unicode)
         self.assertIsInstance(contact.date_birth, date)
-        self.assertEqual(contact.name, u'testName')
-        self.assertEqual(contact.surname, u'testSurname')
-        self.assertEqual(contact.date_birth, date(2002, 02, 02))
-        self.assertEqual(contact.email, u'test@email.com')
-        self.assertEqual(contact.bio, u'test bio info\n test bio info2')
+        self.assertEqual(contact.name, u'myName')
+        self.assertEqual(contact.surname, u'mySurname')
+        self.assertEqual(contact.date_birth.strftime('%d-%m-%Y'),
+                         date(1986, 11, 7).strftime('%d-%m-%Y'))
+        self.assertEqual(contact.email, u'email@email.com')
+        self.assertEqual(contact.bio, u'Django Python developer Dublh 3 '
+                                      u'\r\nJunior Django Python developer')
 
     def test_model_instance_last(self):
         """
@@ -62,7 +55,8 @@ class ContactModelTest(TestCase):
         self.assertIsInstance(contact.created, datetime)
         self.assertIsInstance(contact.name, unicode)
         self.assertIsInstance(contact.date_birth, date)
-        self.assertEqual(contact.date_birth, date(2002, 02, 03))
+        self.assertEqual(contact.date_birth.strftime('%d-%m-%Y'),
+                         date(2002, 2, 3).strftime('%d-%m-%Y'))
         self.assertEqual(contact.name, u'testName2')
         self.assertEqual(contact.surname, u'testSurname2')
         self.assertEqual(contact.email, u'test@email.com2')
