@@ -30,7 +30,8 @@ class HomeViewTest(TestCase):
         self.assertEqual(data['name'], 'myName')
         self.assertEqual(data['surname'], 'mySurname')
         self.assertEqual(data['date_birth'], '07-11-1986')
-        self.assertEqual(data['bio'], 'Django Python developer Dublh 3 \n Junior Django Python developer')
+        self.assertEqual(data['bio'], 'Django Python developer Dublh 3 \n'
+                                      'Junior Django Python developer')
         self.assertEqual(data['email'], 'email@email.com')
         self.assertEquals(data['skype'], 'skype')
         self.assertEqual(data['jabber'], 'jabber@co')
