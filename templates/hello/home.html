@@ -12,7 +12,7 @@
 
 {% block content %}
     <div class="container">
-        <h2 class="page-header">42 Coffee Cups Test Assignment</h2>
+        <h2 class="page-header"><b>42 Coffee Cups Test Assignment</b></h2>
         <div class="row1">
             <div class="col-md-5">
                 <br>
@@ -28,13 +28,13 @@
                     <small> {{ info.date_birth|date:"d-m-Y" }} </small>
                 </h4>
 
-                <h4>Bio:<br>
-                    <small> {{ info.bio|linebreaks }} </small><br>
+                <h4>Bio:
+                    <p><small> {{ info.bio|linebreaks }} </small></p>
                 </h4>
 
             </div>
             <div class="col-md-5">
-                <h4>Contacts</h4>
+                <h4><b>Contacts</b></h4>
                 <h4>Email:
                     <small> {{ info.email }} </small>
                 </h4>
@@ -47,8 +47,8 @@
                     <small> {{ info.skype }} </small>
                 </h4>
 
-                <h4>Other contacts:<br>
-                    <small> {{ info.other_contacts|linebreaks }} </small><br>
+                <h4>Other contacts:
+                    <p><small> {{ info.other_contacts|linebreaks }} </small></p>
                 </h4>
 
             </div>
