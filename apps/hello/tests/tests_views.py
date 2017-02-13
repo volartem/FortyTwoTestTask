@@ -50,12 +50,12 @@ class HomeViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertInHTML('<link rel="stylesheet" href="/static/css/bootstrap/'
                           'bootstrap.min.css">', response.content)
-        self.assertInHTML('<link rel="stylesheet" href="/static/css/style.css" '
-                          'media="screen, projection">', response.content)
-        self.assertInHTML('<li class="active"><a href="/">Home</a></li>', response.content)
+        self.assertInHTML('<link rel="stylesheet" href="/static/css/style.css"'
+                          ' media="screen, projection">', response.content)
+        self.assertInHTML('<li class="active"><a href="/">Home</a></li>',
+                          response.content)
         self.assertTrue('info' in response.context)
         self.assertContains(response, '42 Coffee Cups Test Assignment')
-
 
     def test_home_template_content(self):
         """
