@@ -12,7 +12,7 @@ class ContactModelTest(TestCase):
 
     def setUp(self):
         """
-        Setup two objects to tests
+        Setup object to tests
         """
         Contact.objects.create(name="testName2",
                                surname='testSurname2',
@@ -36,22 +36,6 @@ class ContactModelTest(TestCase):
         Test first instance that would be in template
         """
         contact = Contact.objects.first()
-        self.assertIsInstance(contact.created, datetime)
-        self.assertIsInstance(contact.name, unicode)
-        self.assertIsInstance(contact.date_birth, date)
-        self.assertEqual(contact.name, u'myName')
-        self.assertEqual(contact.surname, u'mySurname')
-        self.assertEqual(contact.date_birth.strftime('%d-%m-%Y'),
-                         date(1986, 11, 7).strftime('%d-%m-%Y'))
-        self.assertEqual(contact.email, u'email@email.com')
-        self.assertEqual(contact.bio, u'Django Python developer Dublh 3 '
-                                      u'\r\nJunior Django Python developer')
-
-    def test_model_instance_last(self):
-        """
-        Test last instance
-        """
-        contact = Contact.objects.last()
         self.assertIsInstance(contact.created, datetime)
         self.assertIsInstance(contact.name, unicode)
         self.assertIsInstance(contact.date_birth, date)
