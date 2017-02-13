@@ -64,3 +64,24 @@ class HomeViewTest(TestCase):
         self.assertEqual(data.email, 'email@email.com')
         self.assertEquals(data.skype, 'skype')
         self.assertEqual(data.jabber, 'jabber@co')
+
+    def test_home_view_cyrillic(self):
+        """Test for views.home in case object data is cyrillic"""
+        Contact.objects.create(
+            name='Артем',
+            surname='Александрович',
+            date_birth='1986-11-07',
+            bio='Биография',
+            email='test@email.com',
+            jabber='АБВГДЕ',
+            skype='ЖЗИЙК',
+            other_contacts='Другие контакты'
+        )
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('42 Coffee Cups Test Assignment', response.content)
+        self.assertIn('Артем', response.content)
+        self.assertIn('Александрович', response.content)
+        self.assertIn('Date of birth', response.content)
+        self.assertIn('Био', response.content)
+        self.assertIn('Другие контакты', response.content)
