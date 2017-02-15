@@ -15,20 +15,28 @@ class HomeViewTest(TestCase):
         self.client = Client()
         self.url = reverse('home')
 
-    def create_obj(self):
+    def create_obj(self,
+                   name='testName',
+                   surname='testSurname',
+                   date='1986-11-07',
+                   bio='Django Python developer Dublh 3 '
+                       '\r\nJunior Django Python developer',
+                   email='email@email.com',
+                   jabber='jabber@co',
+                   skype='skype',
+                   contacts='test contact info'):
         """
         Create instance of Contact table
         """
         Contact.objects.create(
-            name='testName',
-            surname='testSurname',
-            date_birth='1986-11-07',
-            bio='Django Python developer Dublh 3 '
-                '\r\nJunior Django Python developer',
-            email='email@email.com',
-            jabber='jabber@co',
-            skype='skype',
-            other_contacts='test contact info')
+            name=name,
+            surname=surname,
+            date_birth=date,
+            bio=bio,
+            email=email,
+            jabber=jabber,
+            skype=skype,
+            other_contacts=contacts)
 
     def test_home_view_without_data(self):
         """
@@ -80,16 +88,8 @@ class HomeViewTest(TestCase):
         """
         Test for views.home in case object data is cyrillic
         """
-        Contact.objects.create(
-            name='Артем',
-            surname='Александрович',
-            date_birth='1986-11-07',
-            bio='Биография',
-            email='test@email.com',
-            jabber='АБВГДЕ',
-            skype='ЖЗИЙК',
-            other_contacts='Другие контакты'
-        )
+        self.create_obj('Артем', 'Александрович', '1986-11-07', 'Биография',
+                        'test@email.com', 'АБВГДЕ', 'ЖЗИЙК', 'Другие контакты')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertIn('42 Coffee Cups Test Assignment', response.content)
@@ -101,6 +101,7 @@ class HomeViewTest(TestCase):
         self.assertContains(response, 'Name')
         self.assertContains(response, 'Last name')
         self.assertContains(response, 'Email')
+        self.assertContains(response, 'Артем')
 
     def test_home_view_two_object(self):
         """
@@ -110,16 +111,13 @@ class HomeViewTest(TestCase):
         self.create_obj()
 
         # second object
-        Contact.objects.create(
-            name='testName2',
-            surname='testSurname2',
-            date_birth='1986-12-07',
-            bio='Django Python developer Dublh 3 '
-                '\r\nJunior Django Python developer2',
-            email='email@email.com2',
-            jabber='jabber@co2',
-            skype='skype2',
-            other_contacts='test contact info2')
+        self.create_obj('testName2', 'testSurname2', '1986-12-07',
+                        'Django Python developer Dublh 3 '
+                        '\r\nJunior Django Python developer2',
+                        'email@email.com2',
+                        'jabber@co2',
+                        'skype2',
+                        'test contact info2')
 
         response = self.client.get(self.url)
         data = response.context['info']
