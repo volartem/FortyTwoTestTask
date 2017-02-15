@@ -111,15 +111,15 @@ class HomeViewTest(TestCase):
 
         # second object
         Contact.objects.create(
-            name='testName',
-            surname='testSurname',
-            date_birth='1986-11-07',
+            name='testName2',
+            surname='testSurname2',
+            date_birth='1986-12-07',
             bio='Django Python developer Dublh 3 '
-                '\r\nJunior Django Python developer',
-            email='email@email.com',
-            jabber='jabber@co',
-            skype='skype',
-            other_contacts='test contact info')
+                '\r\nJunior Django Python developer2',
+            email='email@email.com2',
+            jabber='jabber@co2',
+            skype='skype2',
+            other_contacts='test contact info2')
 
         response = self.client.get(self.url)
         data = response.context['info']
