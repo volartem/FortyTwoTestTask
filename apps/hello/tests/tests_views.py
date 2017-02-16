@@ -43,23 +43,6 @@ class HomeViewTest(TestCase):
         self.assertNotIn('testName', response.content)
         self.assertNotIn('testSurname', response.content)
         self.assertEqual(response.context['info'], None)
-        print('test witout data ', Contact.objects.count())
-
-    def test_home_view_template_base(self):
-        """
-        Test home view with base elements
-        """
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
-        self.assertInHTML('<link rel="stylesheet" href="/static/css/bootstrap/'
-                          'bootstrap.min.css">', response.content)
-        self.assertInHTML('<link rel="stylesheet" href="/static/css/style.css"'
-                          ' media="screen, projection">', response.content)
-        self.assertInHTML('<li class="active"><a href="/">Home</a></li>',
-                          response.content)
-        self.assertTrue('info' in response.context)
-        self.assertContains(response, '42 Coffee Cups Test Assignment')
-        print('test base ', Contact.objects.count())
 
     def test_home_template_content(self):
         """
@@ -76,10 +59,7 @@ class HomeViewTest(TestCase):
         self.assertEqual(data.email, 'testName0@email.com')
         self.assertEquals(data.skype, 'skype0')
         self.assertEqual(data.jabber, 'jabber0@co')
-        self.assertContains(response, 'Name')
-        self.assertContains(response, 'Last name')
-        self.assertContains(response, 'email')
-        print('test template content', Contact.objects.count())
+        self.base_string_header(response)
 
     def test_home_view_cyrillic(self):
         """
@@ -98,11 +78,7 @@ class HomeViewTest(TestCase):
         self.assertIn('Date of birth', response.content)
         self.assertIn('Био', response.content)
         self.assertIn('Другие контакты', response.content)
-        self.assertContains(response, 'Name')
-        self.assertContains(response, 'Last name')
-        self.assertContains(response, 'Email')
-        self.assertContains(response, 'Артем')
-        print('test cyrilic ', Contact.objects.count())
+        self.base_string_header(response)
 
     def test_home_view_two_object(self):
         """
@@ -124,3 +100,25 @@ class HomeViewTest(TestCase):
         self.assertEquals(data.skype, first.skype)
         self.assertEqual(data.jabber, first.jabber)
         self.assertEqual(Contact.objects.last().name, second.name)
+        self.base_string_header(response)
+
+    def base_string_header(self, response):
+        """
+        This method calls for tests base string header and header html
+        """
+        self.assertEqual(response.status_code, 200)
+        self.assertInHTML('<link rel="stylesheet" href="/static/css/bootstrap/'
+                          'bootstrap.min.css">', response.content)
+        self.assertInHTML('<link rel="stylesheet" href="/static/css/style.css"'
+                          ' media="screen, projection">', response.content)
+        self.assertInHTML('<li class="active"><a href="/">Home</a></li>',
+                          response.content)
+        self.assertTrue('info' in response.context)
+        self.assertContains(response, 'Name')
+        self.assertContains(response, 'Last name')
+        self.assertContains(response, 'Date of birth')
+        self.assertContains(response, 'Email')
+        self.assertContains(response, 'Skype')
+        self.assertContains(response, 'Jabber')
+        self.assertContains(response, 'Contacts')
+        self.assertContains(response, '42 Coffee Cups Test Assignment')
