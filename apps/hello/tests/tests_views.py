@@ -2,6 +2,22 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 from apps.hello.models import Contact
+import factory
+
+
+class ContactFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Contact
+
+    name = 'testName'
+    surname = 'testSurname'
+    date_birth = '1986-11-07'
+    bio = 'Django Python developer Dublh 3 ' \
+          '\r\nJunior Django Python developer',
+    email = 'email@email.com',
+    jabber = 'jabber@co',
+    skype = 'skype',
+    other_contacts = 'test contact info'
 
 
 class HomeViewTest(TestCase):
