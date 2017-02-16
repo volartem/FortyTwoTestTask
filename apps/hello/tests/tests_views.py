@@ -45,7 +45,6 @@ class HomeViewTest(TestCase):
         self.assertEqual(response.context['info'], None)
         print('test witout data ', Contact.objects.count())
 
-
     def test_home_view_template_base(self):
         """
         Test home view with base elements
@@ -62,12 +61,11 @@ class HomeViewTest(TestCase):
         self.assertContains(response, '42 Coffee Cups Test Assignment')
         print('test base ', Contact.objects.count())
 
-
     def test_home_template_content(self):
         """
         Check info to the template with one object
         """
-        contact = ContactFactory()
+        ContactFactory()
         response = self.client.get(self.url)
         data = response.context['info']
         self.assertEqual(data.name, 'testName0')
@@ -82,7 +80,6 @@ class HomeViewTest(TestCase):
         self.assertContains(response, 'Last name')
         self.assertContains(response, 'email')
         print('test template content', Contact.objects.count())
-
 
     def test_home_view_cyrillic(self):
         """
