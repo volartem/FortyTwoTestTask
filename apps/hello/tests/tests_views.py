@@ -66,7 +66,8 @@ class HomeViewTest(TestCase):
 
     def test_home_view_two_object(self):
         """
-        Test home view, table Contact has 2 objects,
+        Table Contact has 2 objects, check
+        that home template has first instance
         """
         first = ContactFactory()
         second = ContactFactory()
