@@ -48,37 +48,21 @@ class HomeViewTest(TestCase):
         """
         Check info to the template with one object
         """
-        ContactFactory()
+        obj = ContactFactory()
         response = self.client.get(self.url)
-        data = response.context['info']
-        self.assertEqual(data.name, 'testName0')
-        self.assertEqual(data.surname, 'testSurname0')
-        self.assertEqual(data.date_birth.strftime('%d-%m-%Y'), '07-11-1986')
-        self.assertEqual(data.bio, 'Django Python developer Dublh 3 '
-                                   '\r\nJunior Django Python developer 0')
-        self.assertEqual(data.email, 'testName0@email.com')
-        self.assertEquals(data.skype, 'skype0')
-        self.assertEqual(data.jabber, 'jabber0@co')
-        self.base_string_header(response)
+        self.base_string_header(response, obj)
 
     def test_home_view_cyrillic(self):
         """
         Test for views.home in case object data is cyrillic
         """
-        ContactFactory.create(name='Артем', surname='Александрович',
-                              date_birth='1986-11-07', bio='Биография',
-                              email='test@email.com', skype='АБВГДЕ',
-                              jabber='ЖЗИЙК',
-                              other_contacts='Другие контакты')
+        obj = ContactFactory.create(name='Артем', surname='Александрович',
+                                    date_birth='1986-11-07', bio=u'Биография',
+                                    email='test@email.com', skype='АБВГДЕ',
+                                    jabber='ЖЗИЙК',
+                                    other_contacts='Другие контакты')
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('42 Coffee Cups Test Assignment', response.content)
-        self.assertIn('Артем', response.content)
-        self.assertIn('Александрович', response.content)
-        self.assertIn('Date of birth', response.content)
-        self.assertIn('Био', response.content)
-        self.assertIn('Другие контакты', response.content)
-        self.base_string_header(response)
+        self.base_string_header(response, obj)
 
     def test_home_view_two_object(self):
         """
@@ -88,21 +72,13 @@ class HomeViewTest(TestCase):
         second = ContactFactory()
         response = self.client.get(self.url)
         data = response.context['info']
-        self.assertEqual(response.status_code, 200)
         self.assertNotEqual(data, None)
-        self.assertEqual(Contact.objects.first(), data)
+        self.assertEqual(Contact.objects.first(), first)
+        self.assertEqual(Contact.objects.last(), second)
         self.assertEqual(Contact.objects.count(), 2)
-        self.assertEqual(data.name, first.name)
-        self.assertEqual(data.surname, first.surname)
-        self.assertEqual(data.date_birth.strftime('%d-%m-%Y'), '07-11-1986')
-        self.assertEqual(data.bio, first.bio)
-        self.assertEqual(data.email, first.email)
-        self.assertEquals(data.skype, first.skype)
-        self.assertEqual(data.jabber, first.jabber)
-        self.assertEqual(Contact.objects.last().name, second.name)
-        self.base_string_header(response)
+        self.base_string_header(response, first)
 
-    def base_string_header(self, response):
+    def base_string_header(self, response, instance):
         """
         This method calls for tests base string header and header html
         """
@@ -122,3 +98,11 @@ class HomeViewTest(TestCase):
         self.assertContains(response, 'Jabber')
         self.assertContains(response, 'Contacts')
         self.assertContains(response, '42 Coffee Cups Test Assignment')
+        self.assertContains(response, instance.name)
+        self.assertContains(response, instance.surname)
+        self.assertContains(response, instance.date_birth)
+        self.assertIn(response.context['info'].bio, instance.bio)
+        self.assertContains(response, instance.email)
+        self.assertContains(response, instance.skype)
+        self.assertContains(response, instance.jabber)
+        self.assertContains(response, instance.other_contacts)
