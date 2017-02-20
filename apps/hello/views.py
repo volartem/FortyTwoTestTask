@@ -6,3 +6,7 @@ from .models import Contact
 def home(request):
     contact = Contact.objects.first()
     return render(request, 'hello/home.html', {'info': contact})
+
+
+def middleware_requests(request):
+    return render(request, 'hello/requests.html')
